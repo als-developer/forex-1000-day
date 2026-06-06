@@ -1,0 +1,8 @@
+PORT=3000
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/forex1000
+MIN_TRADE_AMOUNT=20
+MAX_TRADE_AMOUNT=10000
+AI_LEARNING_RATE=0.001
+AI_EXPLORATION_RATE=0.1
+LOG_LEVEL=info
+NODE_ENV=production
