@@ -1,7 +1,7 @@
 {
   "name": "ultimate-truth-forex-ai",
-  "version": "10.0.0",
-  "description": "Ultimate Truth Live Forex AI Engine - Professional Trading System",
+  "version": "11.0.0",
+  "description": "Ultimate Truth Live Forex AI Engine - Zero Errors",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
@@ -22,9 +22,6 @@
     "dotenv": "^16.3.1",
     "uuid": "^9.0.1",
     "node-cron": "^3.0.3",
-    "axios": "^1.6.2",
-    "bcryptjs": "^2.4.3",
-    "jsonwebtoken": "^9.0.2",
-    "moment": "^2.29.4"
+    "axios": "^1.6.2"
   }
 }
