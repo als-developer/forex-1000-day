@@ -1,10 +1,11 @@
 {
-  "name": "forex-1000-day",
-  "version": "6.0.0",
-  "description": "Forex AI Bot - $20 to $1000 per day",
+  "name": "forex-1000-day-mt5",
+  "version": "7.0.0",
+  "description": "Forex 1000/Day Bot - $20 to $1,000 in ONE TRADE with MT5",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "engines": {
     "node": "18.x"
@@ -20,6 +21,7 @@
     "winston": "^3.10.0",
     "dotenv": "^16.3.1",
     "uuid": "^9.0.1",
-    "node-cron": "^3.0.3"
+    "node-cron": "^3.0.3",
+    "axios": "^1.5.0"
   }
 }
