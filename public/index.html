@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>ULTIMATE TRUTH LIVE FOREX AI | Professional Trading System</title>
+    <title>ULTIMATE MASTER FOREX AI | 100% Intelligent Trading System</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
     <style>
@@ -74,7 +74,7 @@
         }
 
         .logo-title {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 800;
             background: linear-gradient(135deg, #00ff88, #00ccff);
             -webkit-background-clip: text;
@@ -87,7 +87,7 @@
             background: linear-gradient(135deg, #ff6b6b, #ff8e53);
             padding: 4px 12px;
             border-radius: 20px;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 700;
             margin-left: 10px;
         }
@@ -526,6 +526,16 @@
             to { transform: rotate(360deg); }
         }
 
+        /* Pattern Tags */
+        .pattern-tag {
+            display: inline-block;
+            background: rgba(0, 255, 136, 0.15);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            margin: 2px;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .container {
@@ -537,7 +547,7 @@
             }
             
             .logo-title {
-                font-size: 20px;
+                font-size: 18px;
             }
             
             .ticker-value {
@@ -559,8 +569,8 @@
             <div class="logo">
                 <div class="logo-icon">🧠</div>
                 <div class="logo-text">
-                    <span class="logo-title">TRUTH LIVE FOREX AI</span>
-                    <span class="logo-badge">PROFESSIONAL</span>
+                    <span class="logo-title">MASTER FOREX AI</span>
+                    <span class="logo-badge">100% INTELLIGENT</span>
                 </div>
             </div>
             <div class="header-stats">
@@ -570,7 +580,7 @@
                 </div>
                 <div class="stat-card">
                     <div class="stat-label">STRATEGIES</div>
-                    <div class="stat-value" id="activeStrategies">10</div>
+                    <div class="stat-value" id="activeStrategies">12</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-label">AI LEVEL</div>
@@ -583,7 +593,7 @@
         <div class="ai-status">
             <div class="ai-status-item">
                 <div class="pulse-dot"></div>
-                <span>AI Engine: <strong id="aiStatusText">ACTIVE</strong></span>
+                <span>AI Engine: <strong id="aiStatusText">MASTER ACTIVE</strong></span>
             </div>
             <div class="ai-status-item">
                 <span>🧬 Self-Learning: <strong>ENABLED</strong></span>
@@ -593,6 +603,9 @@
             </div>
             <div class="ai-status-item">
                 <span>📊 Database: <strong id="dbStatus">CONNECTED</strong></span>
+            </div>
+            <div class="ai-status-item">
+                <span>🕯️ Patterns: <strong id="patternCount">15</strong></span>
             </div>
         </div>
 
@@ -605,6 +618,10 @@
             <div class="ticker-item">
                 <div class="ticker-label">RSI (14)</div>
                 <div class="ticker-value" id="rsi">--</div>
+            </div>
+            <div class="ticker-item">
+                <div class="ticker-label">ADX</div>
+                <div class="ticker-value" id="adx">--</div>
             </div>
             <div class="ticker-item">
                 <div class="ticker-label">TREND</div>
@@ -630,7 +647,7 @@
             <div class="card">
                 <div class="card-header">
                     <h2>💰 EXECUTE TRADE</h2>
-                    <p>AI-powered trading with 10+ strategies</p>
+                    <p>AI-powered trading with 12+ master strategies</p>
                 </div>
                 
                 <div class="investment-options">
@@ -663,7 +680,7 @@
                 </div>
                 
                 <button class="btn-primary" id="tradeBtn">
-                    🧠 AI DECISION: ANALYZING...
+                    🧠 MASTER AI: ANALYZING...
                 </button>
                 
                 <div id="result" class="result"></div>
@@ -672,7 +689,7 @@
             <!-- AI Market Analysis -->
             <div class="card">
                 <div class="card-header">
-                    <h2>📊 AI MARKET ANALYSIS</h2>
+                    <h2>📊 MASTER AI ANALYSIS</h2>
                     <p>Real-time technical analysis from 15+ indicators</p>
                 </div>
                 
@@ -686,8 +703,8 @@
                         <div class="stat-item-value" id="aiRsi">--</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-item-label">MACD</div>
-                        <div class="stat-item-value" id="aiMacd">--</div>
+                        <div class="stat-item-label">ADX</div>
+                        <div class="stat-item-value" id="aiAdx">--</div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-item-label">ATR</div>
@@ -709,6 +726,10 @@
                         <span id="aiVolatility">--</span>
                     </div>
                     <div class="strategy-item">
+                        <span class="strategy-name">🕯️ Patterns:</span>
+                        <span id="aiPatterns">--</span>
+                    </div>
+                    <div class="strategy-item">
                         <span class="strategy-name">🎯 AI Recommendation:</span>
                         <span id="aiRecommendation" style="color:#00ff88">--</span>
                     </div>
@@ -724,7 +745,7 @@
                 
                 <div style="margin-top: 15px;">
                     <div class="card-header" style="margin-top: 10px; padding-top: 10px;">
-                        <h2 style="font-size: 14px;">🎯 Top 3 Strategies</h2>
+                        <h2 style="font-size: 14px;">🎯 Top 5 Strategies Voting</h2>
                     </div>
                     <div id="topStrategies"></div>
                 </div>
@@ -759,8 +780,8 @@
                         <div class="stat-item-value" id="learningWinRate">--</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-item-label">Learning Iterations</div>
-                        <div class="stat-item-value" id="learningIterations">0</div>
+                        <div class="stat-item-label">Recent Win Rate</div>
+                        <div class="stat-item-value" id="recentWinRate">--</div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-item-label">Top Strategy</div>
@@ -792,8 +813,8 @@
         <!-- Recent Trades -->
         <div class="card" id="tradesCard" style="display: none;">
             <div class="card-header">
-                <h2>📋 RECENT AI TRADES</h2>
-                <p>Last 20 trades executed by the AI</p>
+                <h2>📋 RECENT MASTER AI TRADES</h2>
+                <p>Last 20 trades executed by the Master AI</p>
             </div>
             <div id="tradesList"></div>
         </div>
@@ -809,6 +830,7 @@
             socket.on('market_update', (data) => {
                 document.getElementById('price').innerHTML = data.price.toFixed(5);
                 document.getElementById('rsi').innerHTML = data.rsi;
+                document.getElementById('adx').innerHTML = data.adx;
                 document.getElementById('trend').innerHTML = data.trend;
                 document.getElementById('session').innerHTML = data.session;
                 document.getElementById('confidence').innerHTML = data.confidence;
@@ -835,6 +857,11 @@
                 document.querySelectorAll('.inv-btn').forEach(b => b.style.background = 'rgba(255,255,255,0.1)');
                 btn.style.background = 'rgba(0,255,136,0.2)';
                 btn.style.borderColor = '#00ff88';
+                
+                // Show profit preview
+                const amount = parseInt(btn.dataset.amount);
+                const profit = amount === 20 ? 1000 : amount === 50 ? 2500 : amount === 100 ? 5000 : amount === 500 ? 25000 : 50000;
+                showToast(`💰 Invest $${amount} to earn $${profit} profit!`);
             });
         });
         
@@ -855,7 +882,7 @@
             setTimeout(() => toast.remove(), 5000);
         }
         
-        // Update AI analysis
+        // Update Master AI analysis
         async function updateAIAnalysis() {
             try {
                 const response = await fetch('/api/ai/decision');
@@ -863,22 +890,32 @@
                 if (data.success) {
                     document.getElementById('aiPrice').innerHTML = data.marketData.price.toFixed(5);
                     document.getElementById('aiRsi').innerHTML = data.marketData.rsi;
+                    document.getElementById('aiAdx').innerHTML = data.marketData.adx;
                     document.getElementById('aiTrend').innerHTML = data.marketData.trend;
                     document.getElementById('aiSession').innerHTML = data.marketData.session;
                     document.getElementById('aiVolatility').innerHTML = data.marketData.volatility;
                     document.getElementById('aiRecommendation').innerHTML = data.decision.action;
                     document.getElementById('aiConfidence').innerHTML = data.decision.confidence;
-                    document.getElementById('aiRatio').innerHTML = `${data.decision.buyRatio}% / ${data.decision.sellRatio}%`;
+                    document.getElementById('aiRatio').innerHTML = `${data.decision.buyProbability}% / ${data.decision.sellProbability}%`;
+                    
+                    // Display patterns
+                    if (data.marketData.patterns && data.marketData.patterns.length > 0) {
+                        document.getElementById('aiPatterns').innerHTML = data.marketData.patterns.map(p => 
+                            `<span class="pattern-tag">${p.name}</span>`
+                        ).join('');
+                    } else {
+                        document.getElementById('aiPatterns').innerHTML = 'No patterns detected';
+                    }
                     
                     const tradeBtn = document.getElementById('tradeBtn');
                     if (data.decision.action === 'BUY') {
-                        tradeBtn.innerHTML = `🟢 AI SAYS BUY (${data.decision.confidence}%) - EXECUTE TRADE`;
+                        tradeBtn.innerHTML = `🟢 MASTER AI SAYS BUY (${data.decision.confidence}%) - EXECUTE TRADE`;
                         tradeBtn.style.background = 'linear-gradient(135deg, #00ff88, #00ccff)';
                     } else if (data.decision.action === 'SELL') {
-                        tradeBtn.innerHTML = `🔴 AI SAYS SELL (${data.decision.confidence}%) - EXECUTE TRADE`;
+                        tradeBtn.innerHTML = `🔴 MASTER AI SAYS SELL (${data.decision.confidence}%) - EXECUTE TRADE`;
                         tradeBtn.style.background = 'linear-gradient(135deg, #ff4757, #ff6b81)';
                     } else {
-                        tradeBtn.innerHTML = `⚪ AI SAYS HOLD (${data.decision.confidence}%) - WAITING`;
+                        tradeBtn.innerHTML = `⚪ MASTER AI SAYS HOLD (${data.decision.confidence}%) - WAITING`;
                         tradeBtn.style.background = 'linear-gradient(135deg, #ffa502, #ff6b81)';
                     }
                     
@@ -889,8 +926,13 @@
                                 <span class="${s.action === 'BUY' ? 'profit-positive' : (s.action === 'SELL' ? 'profit-negative' : '')}" style="font-size: 12px;">
                                     ${s.action} (${s.confidence}%)
                                 </span>
+                                <span style="font-size: 11px; color: #888;">Score: ${s.score || 0}</span>
                             </div>
                         `).join('');
+                    }
+                    
+                    if (data.decision.signals && data.decision.signals.length > 0) {
+                        console.log('AI Signals:', data.decision.signals);
                     }
                 }
             } catch(e) {
@@ -898,7 +940,7 @@
             }
         }
         
-        // Load AI learning status
+        // Load Master AI learning status
         async function loadAILearning() {
             try {
                 const response = await fetch('/api/ai/learning');
@@ -906,13 +948,14 @@
                 if (data.success) {
                     document.getElementById('totalTrades').innerHTML = data.ai.totalTradesAnalyzed;
                     document.getElementById('learningWinRate').innerHTML = `${data.ai.currentWinRate}%`;
-                    document.getElementById('learningIterations').innerHTML = data.ai.learningIterations;
+                    document.getElementById('recentWinRate').innerHTML = `${data.ai.recentWinRate}%`;
                     document.getElementById('topStrategy').innerHTML = data.ai.topPerformingStrategy;
                     document.getElementById('globalWinRate').innerHTML = `${data.ai.currentWinRate}%`;
                     document.getElementById('aiConfidenceLevel').innerHTML = data.ai.aiConfidenceLevel;
+                    document.getElementById('patternCount').innerHTML = '15';
                     
                     if (data.ai.strategiesPerformance && data.ai.strategiesPerformance.length > 0) {
-                        document.getElementById('strategyList').innerHTML = data.ai.strategiesPerformance.slice(0, 8).map(s => `
+                        document.getElementById('strategyList').innerHTML = data.ai.strategiesPerformance.slice(0, 10).map(s => `
                             <div class="strategy-item">
                                 <span class="strategy-name">${s.name}</span>
                                 <span class="strategy-winrate">${s.winRate}%</span>
@@ -971,6 +1014,12 @@
                                 <div class="stat-item-value">$${data.user.currentDailyProfit}</div>
                             </div>
                         </div>
+                        <div style="margin-top: 15px; padding: 12px; background: rgba(0,255,136,0.1); border-radius: 10px; font-size: 12px;">
+                            <strong>📊 Performance Summary</strong><br>
+                            Winning Trades: ${data.user.winningTrades} | Losing Trades: ${data.user.losingTrades}<br>
+                            Best Trade: $${data.user.bestTrade} | Worst Trade: $${data.user.worstTrade}<br>
+                            Max Drawdown: $${data.user.maxDrawdown}
+                        </div>
                     `;
                     
                     if (data.recentTrades && data.recentTrades.length > 0) {
@@ -978,7 +1027,7 @@
                         document.getElementById('tradesList').innerHTML = `
                             <table class="trades-table">
                                 <thead>
-                                    <tr><th>Direction</th><th>Amount</th><th>Profit</th><th>Confidence</th><th>Time</th></tr>
+                                    <tr><th>Direction</th><th>Amount</th><th>Profit</th><th>Pips</th><th>Confidence</th><th>R:R</th><th>Time</th></tr>
                                 </thead>
                                 <tbody>
                                     ${data.recentTrades.slice(0, 15).map(t => `
@@ -986,7 +1035,9 @@
                                             <td style="color: ${t.direction === 'BUY' ? '#00ff88' : '#ff4757'}">${t.direction}</td>
                                             <td>$${t.amount}</td>
                                             <td style="color: ${t.profit >= 0 ? '#00ff88' : '#ff4757'}">${t.profit >= 0 ? '+' : ''}$${t.profit}</td>
+                                            <td>${t.pips || 0}</td>
                                             <td>${t.confidence}%</td>
+                                            <td>1:${t.riskRewardRatio || 0}</td>
                                             <td style="font-size: 11px;">${new Date(t.closedAt).toLocaleTimeString()}</td>
                                         </tr>
                                     `).join('')}
@@ -1000,15 +1051,15 @@
             }
         }
         
-        // Update daily progress from any source
+        // Update daily progress
         function updateDailyProgress(currentProfit, target = 1000) {
             const percent = (currentProfit / target) * 100;
             document.getElementById('progressFill').style.width = `${Math.min(100, percent)}%`;
             document.getElementById('currentDaily').innerHTML = `$${currentProfit.toFixed(2)}`;
             const remaining = Math.max(0, target - currentProfit);
             document.getElementById('progressMessage').innerHTML = remaining > 0 ? 
-                `📈 Need $${remaining.toFixed(2)} more to reach $${target} today!` : 
-                `🎉 CONGRATULATIONS! Daily target of $${target} reached! 🎉`;
+                `📈 Need $${remaining.toFixed(2)} more to reach $${target} today! Master AI is working for you!` : 
+                `🎉🎉🎉 CONGRATULATIONS! Daily target of $${target} reached! 🎉🎉🎉`;
         }
         
         // Execute trade
@@ -1034,7 +1085,7 @@
             
             const btn = document.getElementById('tradeBtn');
             btn.disabled = true;
-            btn.innerHTML = '<span class="spinner"></span> AI IS ANALYZING MARKET...';
+            btn.innerHTML = '<span class="spinner"></span> MASTER AI IS ANALYZING MARKET...';
             
             try {
                 const response = await fetch('/api/trade/accept', {
@@ -1057,21 +1108,24 @@
                     document.getElementById('result').innerHTML = `
                         <div>
                             <div style="font-size: 22px; margin-bottom: 10px;">
-                                ${data.trade.profit >= 0 ? '🎉 AI TRADE SUCCESS! 🎉' : '📉 AI TRADE RESULT 📉'}
+                                ${data.trade.profit >= 0 ? '🎉🎉🎉 MASTER AI TRADE SUCCESS! 🎉🎉🎉' : '📊 MASTER AI TRADE RESULT 📊'}
                             </div>
                             <div class="${profitClass}">${profitSign}$${Math.abs(data.trade.profit).toFixed(2)}</div>
                             <div>${data.trade.profitPercent >= 0 ? '+' : ''}${data.trade.profitPercent}% | ${data.trade.pips || 0} pips</div>
                             <div style="margin-top: 10px;">Direction: ${data.trade.direction}</div>
                             <div>Entry: ${data.trade.entryPrice} → Exit: ${data.trade.exitPrice}</div>
                             <div>Stop Loss: ${data.trade.stopLoss} | Take Profit: ${data.trade.takeProfit}</div>
+                            <div>Risk/Reward: 1:${data.trade.riskRewardRatio}</div>
                             <div style="margin-top: 10px; font-size: 11px; color: #aaa;">AI Confidence: ${data.trade.confidence}% | Trade ID: ${data.trade.tradeId}</div>
-                            <div style="margin-top: 15px; padding: 12px; background: rgba(0,255,136,0.1); border-radius: 10px; font-size: 12px;">
-                                <strong>🧠 AI Analysis:</strong><br>
-                                Market Trend: ${data.analysis.marketTrend}<br>
-                                Session: ${data.analysis.marketSession}<br>
-                                Volatility: ${data.analysis.volatility}<br>
-                                RSI: ${data.analysis.rsi}<br>
-                                Top Strategies: ${data.analysis.topStrategies?.map(s => `${s.name} (${s.action} ${s.confidence}%)`).join(' | ')}
+                            <div style="margin-top: 15px; padding: 12px; background: rgba(0,255,136,0.1); border-radius: 10px; font-size: 12px; text-align: left;">
+                                <strong>🧠 MASTER AI ANALYSIS:</strong><br>
+                                ➤ Market Trend: ${data.analysis.marketTrend}<br>
+                                ➤ Session: ${data.analysis.marketSession}<br>
+                                ➤ Volatility: ${data.analysis.volatility}<br>
+                                ➤ RSI: ${data.analysis.rsi} | ADX: ${data.analysis.adx}<br>
+                                ➤ Patterns: ${data.analysis.patterns?.join(', ') || 'None'}<br>
+                                ➤ Buy Probability: ${data.analysis.buyProbability}% | Sell Probability: ${data.analysis.sellProbability}%<br>
+                                ➤ Top Strategies: ${data.analysis.topStrategies?.map(s => `${s.name} (${s.action} ${s.confidence}%)`).join(' | ')}
                             </div>
                         </div>
                     `;
@@ -1084,6 +1138,8 @@
                                 <div class="stat-item"><div class="stat-item-label">📈 Total Profit</div><div class="stat-item-value">$${data.user.totalProfit}</div></div>
                                 <div class="stat-item"><div class="stat-item-label">🎯 Win Rate</div><div class="stat-item-value">${data.user.winRate}%</div></div>
                                 <div class="stat-item"><div class="stat-item-label">📊 Total Trades</div><div class="stat-item-value">${data.user.totalTrades}</div></div>
+                                <div class="stat-item"><div class="stat-item-label">🏆 Best Trade</div><div class="stat-item-value">$${data.user.bestTrade}</div></div>
+                                <div class="stat-item"><div class="stat-item-label">📉 Profit Factor</div><div class="stat-item-value">${data.user.profitFactor}</div></div>
                             </div>
                         `;
                     }
@@ -1099,7 +1155,7 @@
                     showToast(data.message);
                     
                 } else {
-                    showToast(data.message || 'AI analysis indicates no trade opportunity. Try again later.', true);
+                    showToast(data.message || 'Master AI indicates no trade opportunity. Try again later.', true);
                 }
             } catch(error) {
                 console.error('Trade error:', error);
@@ -1121,20 +1177,21 @@
             }, 500);
         });
         
-        // Auto-refresh
+        // Auto-refresh every 3 seconds for market data
         setInterval(async () => {
             await updateAIAnalysis();
             const phone = document.getElementById('phone').value.trim();
             if (phone && phone.length >= 10) {
                 await loadUserStats(phone);
             }
-        }, 5000);
+        }, 3000);
         
+        // Refresh AI learning every 30 seconds
         setInterval(async () => {
             await loadAILearning();
         }, 30000);
         
-        // Initialize
+        // Initialize everything
         async function init() {
             await updateAIAnalysis();
             await loadAILearning();
@@ -1149,10 +1206,15 @@
                     document.getElementById('dbStatus').innerHTML = 'CONNECTED';
                     document.getElementById('dbStatus').style.color = '#00ff88';
                 }
-                if (data.aiEngine === 'active') {
-                    document.getElementById('aiStatusText').innerHTML = 'ACTIVE';
+                if (data.aiEngine === 'MASTER_ACTIVE') {
+                    document.getElementById('aiStatusText').innerHTML = 'MASTER ACTIVE';
                 }
-            } catch(e) {}
+                if (data.strategiesLoaded) {
+                    document.getElementById('activeStrategies').innerHTML = data.strategiesLoaded;
+                }
+            } catch(e) {
+                console.log('Health check error:', e);
+            }
         }
         
         init();
