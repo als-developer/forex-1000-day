@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FOREX 1000/DAY - AI Trading Bot</title>
+    <title>FOREX 1000/DAY - $20 to $1,000 in ONE TRADE!</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -12,60 +12,160 @@
             color: white;
             min-height: 100vh;
         }
-        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-        .header { text-align: center; padding: 40px 20px; background: rgba(0,0,0,0.3); border-radius: 20px; margin-bottom: 30px; }
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, rgba(0,255,136,0.1), rgba(0,204,255,0.1));
+            border-radius: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(0,255,136,0.3);
+        }
         h1 { font-size: 48px; background: linear-gradient(135deg, #00ff88, #00ccff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .highlight { color: #00ff88; }
-        .card { background: rgba(255,255,255,0.05); border-radius: 20px; padding: 30px; margin-bottom: 30px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+        .subtitle { font-size: 20px; margin-top: 10px; }
+        .highlight { color: #00ff88; font-weight: bold; font-size: 28px; }
+        
+        .profit-badge {
+            background: linear-gradient(135deg, #00ff88, #00ccff);
+            color: #0a0e27;
+            padding: 20px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .profit-badge h2 { font-size: 36px; }
+        .profit-badge p { font-size: 18px; }
+        
+        .card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
         .card h2 { margin-bottom: 20px; color: #00ff88; }
+        
+        .investment-options {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .investment-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 15px 25px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .investment-btn:hover { background: rgba(0,255,136,0.2); border-color: #00ff88; transform: scale(1.05); }
+        
         .input-group { margin-bottom: 20px; }
         .input-group label { display: block; margin-bottom: 8px; color: #ccc; }
-        .input-group input { width: 100%; padding: 15px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; color: white; font-size: 16px; }
+        .input-group input {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            color: white;
+            font-size: 18px;
+        }
         .input-group input:focus { outline: none; border-color: #00ff88; }
-        .investment-options { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
-        .investment-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 10px; color: white; cursor: pointer; transition: all 0.3s; }
-        .investment-btn:hover { background: rgba(0,255,136,0.2); border-color: #00ff88; }
-        .payment-methods { display: flex; gap: 15px; margin-bottom: 25px; justify-content: center; flex-wrap: wrap; }
-        .payment-badge { background: rgba(255,255,255,0.1); padding: 10px 20px; border-radius: 30px; cursor: pointer; transition: all 0.3s; }
+        
+        .payment-methods {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .payment-badge {
+            background: rgba(255,255,255,0.1);
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
         .payment-badge.active { background: linear-gradient(135deg, #00ff88, #00ccff); color: #0a0e27; }
-        .btn-primary { width: 100%; padding: 15px; background: linear-gradient(135deg, #00ff88, #00ccff); border: none; border-radius: 10px; font-size: 18px; font-weight: bold; color: #0a0e27; cursor: pointer; transition: transform 0.3s; }
-        .btn-primary:hover { transform: scale(1.02); }
+        
+        .btn-primary {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #00ff88, #00ccff);
+            border: none;
+            border-radius: 12px;
+            font-size: 22px;
+            font-weight: bold;
+            color: #0a0e27;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-primary:hover { transform: scale(1.02); box-shadow: 0 10px 30px rgba(0,255,136,0.3); }
         .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
-        .result { margin-top: 20px; padding: 20px; background: rgba(0,0,0,0.3); border-radius: 10px; display: none; }
-        .result.show { display: block; }
-        .profit-positive { color: #00ff88; font-size: 32px; font-weight: bold; }
-        .profit-negative { color: #ff4757; font-size: 32px; font-weight: bold; }
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
+        
+        .result {
+            margin-top: 20px;
+            padding: 25px;
+            background: linear-gradient(135deg, rgba(0,255,136,0.1), rgba(0,204,255,0.1));
+            border-radius: 15px;
+            display: none;
+            border: 1px solid #00ff88;
+            text-align: center;
+        }
+        .result.show { display: block; animation: fadeIn 0.5s; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .profit-amount { color: #00ff88; font-size: 48px; font-weight: bold; }
+        .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px; }
         .stat-card { background: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px; text-align: center; }
-        .stat-value { font-size: 24px; font-weight: bold; color: #00ff88; }
-        .progress-bar { background: rgba(255,255,255,0.1); border-radius: 20px; height: 20px; overflow: hidden; margin: 15px 0; }
-        .progress-fill { background: linear-gradient(90deg, #00ff88, #00ccff); height: 100%; border-radius: 20px; transition: width 0.5s; width: 0%; }
-        .toast { position: fixed; bottom: 20px; right: 20px; background: #333; padding: 12px 20px; border-radius: 8px; z-index: 1000; animation: slideIn 0.3s ease; border-left: 4px solid #00ff88; }
-        .toast.error { border-left-color: #ff4757; }
-        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-        @media (max-width: 768px) { h1 { font-size: 32px; } .container { padding: 10px; } }
+        .stat-value { font-size: 28px; font-weight: bold; color: #00ff88; }
+        
+        @media (max-width: 600px) {
+            h1 { font-size: 32px; }
+            .profit-amount { font-size: 32px; }
+            .investment-btn { padding: 10px 15px; font-size: 14px; }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
             <h1>🚀 FOREX 1000/DAY</h1>
-            <p>Turn <span class="highlight">$20</span> into <span class="highlight">$1,000</span> per day with AI-Powered Trading</p>
+            <div class="subtitle">Turn <span class="highlight">$20</span> into <span class="highlight">$1,000</span> in <span class="highlight">ONE TRADE!</span></div>
+        </div>
+        
+        <div class="profit-badge">
+            <h2>💰 ONE TRADE = $1,000 PROFIT!</h2>
+            <p>Invest $20 → Get $1,000 instantly!</p>
+            <p>Invest $50 → Get $2,500!</p>
+            <p>Invest $100 → Get $5,000!</p>
         </div>
         
         <div class="card">
-            <h2>💰 Start Trading Now</h2>
+            <h2>⚡ START TRADING NOW</h2>
             
             <div class="investment-options">
-                <button class="investment-btn" data-amount="20">$20</button>
-                <button class="investment-btn" data-amount="50">$50</button>
-                <button class="investment-btn" data-amount="100">$100</button>
-                <button class="investment-btn" data-amount="500">$500</button>
-                <button class="investment-btn" data-amount="1000">$1,000</button>
+                <button class="investment-btn" data-amount="20">$20 → $1,000</button>
+                <button class="investment-btn" data-amount="50">$50 → $2,500</button>
+                <button class="investment-btn" data-amount="100">$100 → $5,000</button>
+                <button class="investment-btn" data-amount="500">$500 → $25,000</button>
+                <button class="investment-btn" data-amount="1000">$1,000 → $50,000</button>
             </div>
             
             <div class="input-group">
-                <label>💰 Custom Amount (USD)</label>
+                <label>💰 Investment Amount (USD)</label>
                 <input type="number" id="amount" placeholder="Enter amount (min $20)" min="20" step="10" value="20">
             </div>
             
@@ -74,18 +174,15 @@
                 <input type="tel" id="phone" placeholder="e.g., 0712345678">
             </div>
             
-            <div class="input-group">
-                <label>📧 Email (Optional)</label>
-                <input type="email" id="email" placeholder="your@email.com">
-            </div>
-            
             <div class="payment-methods">
                 <div class="payment-badge active" data-provider="mpesa">M-PESA</div>
                 <div class="payment-badge" data-provider="tigopesa">TIGO PESA</div>
                 <div class="payment-badge" data-provider="airtel">AIRTEL MONEY</div>
             </div>
             
-            <button class="btn-primary" id="tradeBtn">🚀 START TRADING</button>
+            <button class="btn-primary" id="tradeBtn">
+                🚀 INVEST & EARN $1,000!
+            </button>
             
             <div class="result" id="result">
                 <div id="resultContent"></div>
@@ -93,22 +190,10 @@
         </div>
         
         <div class="card" id="statsCard">
-            <h2>📊 Your Performance</h2>
+            <h2>📊 YOUR PERFORMANCE</h2>
             <div id="statsContent">
-                <p style="text-align: center; color: #aaa;">Enter your phone number above and make a trade to see stats</p>
+                <p style="text-align: center; color: #aaa;">Enter your phone number and make a trade</p>
             </div>
-        </div>
-        
-        <div class="card">
-            <h2>🎯 Daily $1,000 Target Progress</h2>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
-            </div>
-            <div style="display: flex; justify-content: space-between;">
-                <span id="currentProfit">$0</span>
-                <span>Target: $1,000</span>
-            </div>
-            <p id="progressMessage" style="margin-top: 10px; color: #aaa; text-align: center;"></p>
         </div>
     </div>
 
@@ -118,10 +203,10 @@
         // Investment buttons
         document.querySelectorAll('.investment-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                document.getElementById('amount').value = btn.dataset.amount;
-                document.querySelectorAll('.investment-btn').forEach(b => b.style.background = 'rgba(255,255,255,0.1)');
-                btn.style.background = 'rgba(0,255,136,0.2)';
-                btn.style.borderColor = '#00ff88';
+                const amount = btn.dataset.amount;
+                document.getElementById('amount').value = amount;
+                const profit = amount === '20' ? '1,000' : amount === '50' ? '2,500' : amount === '100' ? '5,000' : amount === '500' ? '25,000' : '50,000';
+                showToast(`💰 Invest $${amount} to earn $${profit} profit!`);
             });
         });
         
@@ -134,83 +219,66 @@
             });
         });
         
-        function showToast(message, isError = false) {
+        function showToast(message) {
             const toast = document.createElement('div');
-            toast.className = `toast ${isError ? 'error' : ''}`;
+            toast.style.cssText = 'position:fixed; bottom:20px; right:20px; background:#00ff88; color:#0a0e27; padding:12px 20px; border-radius:8px; z-index:1000; animation:slideIn 0.3s ease; font-weight:bold;';
             toast.innerHTML = message;
             document.body.appendChild(toast);
-            setTimeout(() => toast.remove(), 5000);
+            setTimeout(() => toast.remove(), 3000);
         }
         
-        // Trade button
         const tradeBtn = document.getElementById('tradeBtn');
         
         async function startTrade() {
             const phone = document.getElementById('phone').value.trim();
             const amount = parseFloat(document.getElementById('amount').value);
-            const email = document.getElementById('email').value.trim();
             
             if (!phone || phone.length < 10) {
-                showToast('Please enter a valid phone number', true);
+                showToast('Please enter a valid phone number');
                 return;
             }
             
             if (!amount || amount < 20) {
-                showToast('Minimum investment is $20', true);
+                showToast('Minimum investment is $20 to earn $1,000!');
                 return;
             }
             
             if (amount > 10000) {
-                showToast('Maximum investment is $10,000', true);
+                showToast('Maximum investment is $10,000');
                 return;
             }
             
             tradeBtn.disabled = true;
-            tradeBtn.innerHTML = '⏳ PROCESSING...';
+            tradeBtn.innerHTML = '⏳ PROCESSING YOUR TRADE...';
             
             try {
-                console.log('Sending request...', { phoneNumber: phone, amount, provider: currentProvider, email });
-                
                 const response = await fetch('/api/trade/accept', {
                     method: 'POST',
-                    headers: { 
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         phoneNumber: phone,
                         amount: amount,
-                        provider: currentProvider,
-                        email: email
+                        provider: currentProvider
                     })
                 });
                 
-                console.log('Response status:', response.status);
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}`);
-                }
-                
                 const data = await response.json();
-                console.log('Response data:', data);
                 
                 if (data.success) {
-                    // Show result
-                    const resultDiv = document.getElementById('result');
-                    const profitClass = data.trade.profit >= 0 ? 'profit-positive' : 'profit-negative';
-                    const profitSign = data.trade.profit >= 0 ? '+' : '';
+                    const profit = data.trade.profit;
+                    const totalReturn = amount + profit;
                     
                     document.getElementById('resultContent').innerHTML = `
                         <div style="text-align: center;">
-                            <h3>✅ TRADE COMPLETE!</h3>
-                            <div class="${profitClass}">${profitSign}$${Math.abs(data.trade.profit).toFixed(2)}</div>
-                            <div>${data.trade.profitPercent >= 0 ? '+' : ''}${data.trade.profitPercent}%</div>
-                            <div style="margin-top: 10px;">Confidence: ${data.trade.confidence}%</div>
-                            <div>Direction: ${data.trade.direction}</div>
-                            <div>Trade ID: ${data.trade.tradeId}</div>
+                            <div style="font-size: 24px; margin-bottom: 10px;">🎉🎉🎉 CONGRATULATIONS! 🎉🎉🎉</div>
+                            <div class="profit-amount">+ $${profit.toFixed(2)} PROFIT!</div>
+                            <div style="font-size: 20px; margin: 10px 0;">Your $${amount} → $${totalReturn.toFixed(2)}</div>
+                            <div style="font-size: 16px; color: #00ff88; margin: 10px 0;">💰 Money sent to ${phone} via ${currentProvider.toUpperCase()}!</div>
+                            <div style="font-size: 14px; color: #aaa; margin-top: 15px;">Trade ID: ${data.trade.tradeId}</div>
+                            <div style="font-size: 14px; color: #aaa;">Confidence: ${data.trade.confidence}%</div>
                         </div>
                     `;
-                    resultDiv.classList.add('show');
+                    document.getElementById('result').classList.add('show');
                     
                     // Update stats
                     if (data.user) {
@@ -233,104 +301,64 @@
                                     <div class="stat-value">${data.user.totalTrades}</div>
                                 </div>
                             </div>
+                            <div style="margin-top: 15px; text-align: center; padding: 15px; background: rgba(0,255,136,0.1); border-radius: 10px;">
+                                <strong>${data.profitInfo.message}</strong>
+                            </div>
                         `;
                     }
                     
-                    // Update progress
-                    if (data.progress) {
-                        const progressPercent = (parseFloat(data.progress.currentDailyProfit) / 1000) * 100;
-                        document.getElementById('progressFill').style.width = `${Math.min(100, progressPercent)}%`;
-                        document.getElementById('currentProfit').innerHTML = `$${data.progress.currentDailyProfit}`;
-                        document.getElementById('progressMessage').innerHTML = data.progress.message;
-                    }
-                    
-                    showToast(data.message);
-                    
-                    // Auto refresh stats after 2 seconds
-                    setTimeout(() => fetchUserStats(phone), 2000);
+                    showToast(`✅ SUCCESS! You earned $${profit.toFixed(2)} profit!`);
                     
                 } else {
-                    showToast(data.message || 'Trade failed. Please try again.', true);
+                    showToast(data.message || 'Trade failed. Please try again.');
                 }
             } catch (error) {
-                console.error('Trade error:', error);
-                showToast('Network error. Please check your connection and try again.', true);
+                console.error('Error:', error);
+                showToast('Network error. Please check your connection.');
             } finally {
                 tradeBtn.disabled = false;
-                tradeBtn.innerHTML = '🚀 START TRADING';
+                tradeBtn.innerHTML = '🚀 INVEST & EARN $1,000!';
             }
         }
         
-        async function fetchUserStats(phone) {
-            if (!phone || phone.length < 10) return;
-            
-            try {
-                const response = await fetch(`/api/user/stats?phoneNumber=${encodeURIComponent(phone)}`);
-                const data = await response.json();
-                
-                if (data.success && data.user) {
-                    document.getElementById('statsContent').innerHTML = `
-                        <div class="stats-grid">
-                            <div class="stat-card">
-                                <div>Current Balance</div>
-                                <div class="stat-value">$${data.user.balance}</div>
-                            </div>
-                            <div class="stat-card">
-                                <div>Total Profit</div>
-                                <div class="stat-value">$${data.user.totalProfit}</div>
-                            </div>
-                            <div class="stat-card">
-                                <div>Win Rate</div>
-                                <div class="stat-value">${data.user.winRate}%</div>
-                            </div>
-                            <div class="stat-card">
-                                <div>Total Trades</div>
-                                <div class="stat-value">${data.user.totalTrades}</div>
-                            </div>
-                        </div>
-                    `;
-                    
-                    if (data.dailyProgress) {
-                        const progressPercent = parseFloat(data.dailyProgress.progressPercent);
-                        document.getElementById('progressFill').style.width = `${Math.min(100, progressPercent)}%`;
-                        document.getElementById('currentProfit').innerHTML = `$${data.dailyProgress.currentDailyProfit}`;
-                        if (data.dailyProgress.remainingTarget > 0) {
-                            document.getElementById('progressMessage').innerHTML = `Need $${data.dailyProgress.remainingTarget} more to reach $1000`;
-                        } else {
-                            document.getElementById('progressMessage').innerHTML = '🎉 Daily target reached!';
-                        }
-                    }
-                }
-            } catch (error) {
-                console.error('Stats fetch error:', error);
-            }
-        }
+        tradeBtn.addEventListener('click', startTrade);
         
         // Load stats when phone number changes
         let phoneTimeout;
-        document.getElementById('phone').addEventListener('input', (e) => {
+        document.getElementById('phone').addEventListener('input', async (e) => {
             clearTimeout(phoneTimeout);
-            phoneTimeout = setTimeout(() => {
-                fetchUserStats(e.target.value.trim());
+            phoneTimeout = setTimeout(async () => {
+                const phone = e.target.value.trim();
+                if (phone && phone.length >= 10) {
+                    try {
+                        const response = await fetch(`/api/user/stats?phoneNumber=${encodeURIComponent(phone)}`);
+                        const data = await response.json();
+                        if (data.success && data.user) {
+                            document.getElementById('statsContent').innerHTML = `
+                                <div class="stats-grid">
+                                    <div class="stat-card">
+                                        <div>Current Balance</div>
+                                        <div class="stat-value">$${data.user.balance}</div>
+                                    </div>
+                                    <div class="stat-card">
+                                        <div>Total Profit</div>
+                                        <div class="stat-value">$${data.user.totalProfit}</div>
+                                    </div>
+                                    <div class="stat-card">
+                                        <div>Win Rate</div>
+                                        <div class="stat-value">${data.user.winRate}%</div>
+                                    </div>
+                                    <div class="stat-card">
+                                        <div>Total Trades</div>
+                                        <div class="stat-value">${data.user.totalTrades}</div>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                    } catch (error) {}
+                }
             }, 500);
         });
-        
-        document.getElementById('tradeBtn').addEventListener('click', startTrade);
-        
-        // Check if server is running
-        async function checkServer() {
-            try {
-                const response = await fetch('/health');
-                const data = await response.json();
-                console.log('Server health:', data);
-                if (data.status === 'online') {
-                    showToast('✅ Connected to server successfully!');
-                }
-            } catch (error) {
-                console.error('Server check failed:', error);
-            }
-        }
-        checkServer();
     </script>
 </body>
 </html>
