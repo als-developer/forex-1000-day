@@ -1,10 +1,11 @@
 {
-  "name": "ultimate-truth-forex-ai",
-  "version": "11.0.0",
-  "description": "Ultimate Truth Live Forex AI Engine - Zero Errors",
+  "name": "ultimate-master-forex-ai",
+  "version": "12.0.0",
+  "description": "Ultimate Master Forex AI - 100% Intelligent Trading System with Self-Learning",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "engines": {
     "node": "22.x",
@@ -23,5 +24,16 @@
     "uuid": "^9.0.1",
     "node-cron": "^3.0.3",
     "axios": "^1.6.2"
-  }
+  },
+  "keywords": [
+    "forex",
+    "trading",
+    "ai",
+    "bot",
+    "metatrader",
+    "forex-trading",
+    "algorithmic-trading"
+  ],
+  "author": "Ultimate Master Forex AI",
+  "license": "MIT"
 }
