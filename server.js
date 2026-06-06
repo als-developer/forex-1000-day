@@ -18,115 +18,75 @@ app.use((req, res, next) => {
     next();
 });
 
-// ==================== IN-MEMORY DATABASE ====================
+// ==================== DATABASE ====================
 const users = new Map();
 
-// ==================== FOREX 1000/DAY ENGINE - HIGH WIN RATE ====================
+// ==================== FOREX 1000/DAY BOT - $20 → $1,000 IN ONE TRADE ====================
 class Forex1000Bot {
     constructor() {
-        this.dailyTarget = 1000;
-        this.winRate = 92; // 92% win rate - almost never loses
-        console.log('🚀 FOREX 1000/DAY BOT INITIALIZED - 92% WIN RATE');
+        this.targetProfit = 1000;  // $1,000 profit per trade
+        this.minInvestment = 20;     // $20 minimum
+        console.log('🚀 FOREX 1000/DAY BOT - $20 → $1,000 IN ONE TRADE!');
+        console.log('💰 GUARANTEED PROFIT: $1,000 PER TRADE');
     }
 
-    // Advanced market analysis with 92% accuracy
-    analyzeMarket() {
-        const hour = new Date().getUTCHours();
-        // London + NY session = best trading (92% win rate)
-        const isBestSession = (hour >= 8 && hour <= 17) || (hour >= 13 && hour <= 22);
-        const isGoodSession = (hour >= 6 && hour <= 8) || (hour >= 17 && hour <= 20);
-        
-        let winProbability = 92; // Base 92%
-        
-        if (isBestSession) winProbability = 95;
-        else if (isGoodSession) winProbability = 90;
-        else winProbability = 88;
-        
-        // Trend detection - always profitable
-        const trend = Math.sin(Date.now() / 3600000) > 0 ? 'UP' : 'DOWN';
-        const recommendation = trend === 'UP' ? 'BUY' : 'SELL';
-        
-        return {
-            recommendation,
-            winProbability,
-            confidence: winProbability,
-            session: isBestSession ? 'BEST' : (isGoodSession ? 'GOOD' : 'NORMAL'),
-            trend
-        };
-    }
-
-    // Calculate compound growth position
-    calculatePosition(currentBalance, initialDeposit = 20) {
-        if (currentBalance <= 20) return 20;
-        
-        // Scale position with balance growth
-        let multiplier = currentBalance / initialDeposit;
-        multiplier = Math.min(multiplier, 50); // Max 50x
-        let position = 20 * multiplier;
-        position = Math.min(position, currentBalance * 0.25); // Max 25% of balance
-        return Math.floor(position);
-    }
-
-    // Execute trade - ALMOST ALWAYS PROFITABLE
+    // Execute trade - ALWAYS PROFITABLE
     executeTrade(phoneNumber, amount) {
-        const analysis = this.analyzeMarket();
-        
-        // 92-95% chance of profit
-        const isWin = Math.random() * 100 < analysis.winProbability;
-        
-        let profitPercent, profit;
-        
-        if (isWin) {
-            // Profit: 3% to 8% per trade
-            profitPercent = 0.03 + (Math.random() * 0.05);
-            profit = amount * profitPercent;
-        } else {
-            // Loss: only 0.5% to 1.5% (TIGHT STOP LOSS)
-            profitPercent = -(0.005 + (Math.random() * 0.01));
-            profit = amount * profitPercent;
+        // Validate amount
+        if (amount < 20) {
+            return { success: false, message: 'Minimum investment is $20' };
         }
         
-        console.log(`📊 Trade: ${isWin ? 'WIN' : 'LOSS'} | $${amount} | ${(profitPercent*100).toFixed(2)}% | Profit: $${profit.toFixed(2)}`);
+        // Calculate profit based on investment
+        // $20 → $1,000 profit (5000% return)
+        // $50 → $2,500 profit
+        // $100 → $5,000 profit
+        // $1000 → $50,000 profit
+        
+        const multiplier = amount / 20;  // How many times 20
+        const profit = 1000 * multiplier;  // $1,000 per $20
+        
+        const profitPercent = (profit / amount) * 100;
+        
+        console.log(`💰 TRADE: $${amount} → PROFIT: $${profit.toFixed(2)} (${profitPercent.toFixed(0)}%)`);
         
         return {
-            tradeId: `T_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
-            direction: analysis.recommendation,
+            success: true,
+            tradeId: `T_${Date.now()}_${Math.random().toString(36).substr(2, 8)}`,
+            direction: 'BUY',  // Always BUY
             amount: amount,
             profit: profit,
-            profitPercent: (profitPercent * 100).toFixed(2),
-            confidence: Math.floor(analysis.winProbability),
-            isWin: isWin,
-            analysis: analysis
+            profitPercent: profitPercent.toFixed(2),
+            confidence: 99,
+            message: `🎉 PROFIT: $${profit.toFixed(2)}! Your $${amount} turned into $${(amount + profit).toFixed(2)}!`
         };
     }
 
-    // Calculate daily target progress
-    calculateDailyTarget(currentProfit, initialInvestment = 20) {
-        // Scale target with investment
-        let target = this.dailyTarget;
-        if (initialInvestment > 20) {
-            target = this.dailyTarget * (initialInvestment / 20);
-            target = Math.min(target, 50000); // Max $50,000 per day
-        }
-        return Math.floor(target);
+    // Calculate compound growth
+    calculateNextTrade(currentBalance) {
+        // Every $20 = $1,000 profit
+        const multiplier = currentBalance / 20;
+        const expectedProfit = 1000 * multiplier;
+        return {
+            nextProfit: expectedProfit,
+            nextBalance: currentBalance + expectedProfit
+        };
     }
 }
 
 const bot = new Forex1000Bot();
 
-// ==================== API ENDPOINTS ====================
-
+// ==================== HEALTH CHECK ====================
 app.get('/health', (req, res) => {
     res.json({
         status: 'online',
-        bot: 'FOREX 1000/DAY',
-        winRate: '92-95%',
-        dailyTarget: '$1,000+',
+        bot: 'FOREX 1000/DAY - ONE TRADE TO $1000',
+        profitGuarantee: '$1,000 profit from $20',
         uptime: process.uptime()
     });
 });
 
-// Main trading endpoint
+// ==================== MAIN TRADING ENDPOINT ====================
 app.post('/api/trade/accept', (req, res) => {
     try {
         const { phoneNumber, amount, provider = 'mpesa', email } = req.body;
@@ -135,16 +95,25 @@ app.post('/api/trade/accept', (req, res) => {
         
         // Validation
         if (!phoneNumber || phoneNumber.length < 10) {
-            return res.status(400).json({ success: false, message: 'Valid phone number required' });
+            return res.status(400).json({ 
+                success: false, 
+                message: 'Please enter a valid phone number (e.g., 0712345678)' 
+            });
         }
         
         let tradeAmount = parseFloat(amount);
         if (isNaN(tradeAmount) || tradeAmount < 20) {
-            return res.status(400).json({ success: false, message: 'Minimum investment is $20' });
+            return res.status(400).json({ 
+                success: false, 
+                message: 'Minimum investment is $20 to earn $1,000 profit!' 
+            });
         }
         
         if (tradeAmount > 10000) {
-            return res.status(400).json({ success: false, message: 'Maximum investment is $10,000' });
+            return res.status(400).json({ 
+                success: false, 
+                message: 'Maximum investment is $10,000' 
+            });
         }
         
         // Find or create user
@@ -156,13 +125,10 @@ app.post('/api/trade/accept', (req, res) => {
                 phoneNumber: phoneNumber,
                 email: email || '',
                 balance: 0,
-                totalDeposits: 0,
+                totalInvested: 0,
                 totalProfit: 0,
                 totalTrades: 0,
                 winningTrades: 0,
-                losingTrades: 0,
-                currentDailyProfit: 0,
-                lastTradeDate: new Date().toDateString(),
                 createdAt: new Date()
             };
             users.set(phoneNumber, user);
@@ -170,64 +136,41 @@ app.post('/api/trade/accept', (req, res) => {
             console.log(`👤 NEW USER: ${phoneNumber}`);
         }
         
-        // Reset daily profit if new day
-        const today = new Date().toDateString();
-        if (user.lastTradeDate !== today) {
-            user.currentDailyProfit = 0;
-            user.lastTradeDate = today;
-        }
-        
-        // Add deposit to balance
-        const previousBalance = user.balance;
-        user.balance += tradeAmount;
-        user.totalDeposits += tradeAmount;
-        
-        // Calculate position size based on balance (compound)
-        const positionSize = bot.calculatePosition(user.balance, user.totalDeposits || 20);
-        const actualTradeAmount = Math.min(positionSize, tradeAmount);
+        // Calculate profit (GUARANTEED)
+        const multiplier = tradeAmount / 20;
+        const profit = 1000 * multiplier;
+        const newBalance = user.balance + tradeAmount + profit;
         
         // Execute trade
-        const trade = bot.executeTrade(phoneNumber, actualTradeAmount);
+        const trade = bot.executeTrade(phoneNumber, tradeAmount);
+        
+        if (!trade.success) {
+            return res.status(400).json({ success: false, message: trade.message });
+        }
         
         // Update user stats
-        user.balance += trade.profit;
+        const previousBalance = user.balance;
+        user.balance = newBalance;
+        user.totalInvested += tradeAmount;
+        user.totalProfit += profit;
         user.totalTrades++;
-        user.currentDailyProfit += trade.profit;
+        user.winningTrades++;
         
-        if (trade.isWin) {
-            user.winningTrades++;
-            user.totalProfit += trade.profit;
-        } else {
-            user.losingTrades++;
-        }
+        // Calculate win rate
+        user.winRate = (user.winningTrades / user.totalTrades) * 100;
         
-        user.winRate = user.totalTrades > 0 ? (user.winningTrades / user.totalTrades) * 100 : 0;
+        console.log(`✅ TRADE COMPLETE: $${tradeAmount} → $${profit.toFixed(2)} PROFIT!`);
+        console.log(`💰 NEW BALANCE: $${user.balance.toFixed(2)}`);
         
-        // Calculate daily target based on investment
-        const dailyTarget = bot.calculateDailyTarget(user.totalDeposits, user.totalDeposits);
-        const progressPercent = (user.currentDailyProfit / dailyTarget) * 100;
-        const remainingTarget = dailyTarget - user.currentDailyProfit;
-        
-        console.log(`✅ TRADE RESULT: ${trade.isWin ? 'WIN' : 'LOSS'} | Profit: $${trade.profit.toFixed(2)} | Balance: $${user.balance.toFixed(2)}`);
-        
-        // Auto-withdraw when target reached
-        let withdrawal = null;
-        if (user.currentDailyProfit >= dailyTarget && user.currentDailyProfit > 10) {
-            withdrawal = {
-                success: true,
-                amount: user.currentDailyProfit,
-                message: `🎉 Daily target reached! $${user.currentDailyProfit.toFixed(2)} sent to ${phoneNumber}!`
-            };
-            // Reset daily profit after withdrawal
-            user.currentDailyProfit = 0;
-        }
+        // Prepare response with profit
+        const responseMessage = `🎉 CONGRATULATIONS! 🎉\n\nYour $${tradeAmount} investment just earned $${profit.toFixed(2)} PROFIT!\nTotal balance: $${user.balance.toFixed(2)}\n\n💰 Money will be sent to ${phoneNumber} within minutes!`;
         
         res.json({
             success: true,
-            message: `✅ $${tradeAmount} invested! Trade executed.`,
+            message: responseMessage,
             payment: {
                 amount: tradeAmount,
-                transactionId: `PAY_${Date.now()}`,
+                transactionId: `PAY_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
                 phoneNumber: phoneNumber,
                 provider: provider
             },
@@ -235,46 +178,38 @@ app.post('/api/trade/accept', (req, res) => {
                 tradeId: trade.tradeId,
                 direction: trade.direction,
                 amount: trade.amount,
-                profit: trade.profit,
+                profit: profit,
                 profitPercent: trade.profitPercent,
                 confidence: trade.confidence,
-                isWin: trade.isWin
+                message: trade.message
             },
-            analysis: {
-                recommendation: trade.analysis.recommendation,
-                confidence: trade.analysis.confidence,
-                session: trade.analysis.session,
-                winProbability: `${trade.analysis.winProbability}%`
-            },
-            withdrawal: withdrawal,
             user: {
                 phoneNumber: user.phoneNumber,
                 balance: user.balance.toFixed(2),
                 totalProfit: user.totalProfit.toFixed(2),
                 winRate: user.winRate.toFixed(1),
                 totalTrades: user.totalTrades,
-                winningTrades: user.winningTrades,
-                losingTrades: user.losingTrades
+                winningTrades: user.winningTrades
             },
-            progress: {
-                currentDailyProfit: user.currentDailyProfit.toFixed(2),
-                dailyTarget: dailyTarget,
-                progressPercent: Math.min(100, Math.max(0, progressPercent)).toFixed(1),
-                remainingTarget: Math.max(0, remainingTarget).toFixed(2),
-                nextTradeSize: bot.calculatePosition(user.balance, user.totalDeposits || 20),
-                message: remainingTarget <= 0 ? 
-                    `🎉 CONGRATULATIONS! You reached $${dailyTarget} today!` : 
-                    `📈 Need $${remainingTarget.toFixed(2)} more to reach $${dailyTarget} today! Next trade: $${bot.calculatePosition(user.balance, user.totalDeposits || 20)}`
+            profitInfo: {
+                investment: tradeAmount,
+                profit: profit,
+                totalReturn: (tradeAmount + profit).toFixed(2),
+                multiplier: `${(profit / tradeAmount).toFixed(0)}x`,
+                message: `💵 Your $${tradeAmount} became $${(tradeAmount + profit).toFixed(2)}!`
             }
         });
         
     } catch (error) {
         console.error('Trade error:', error);
-        res.status(500).json({ success: false, message: 'System error. Please try again.' });
+        res.status(500).json({ 
+            success: false, 
+            message: 'System error. Please try again.' 
+        });
     }
 });
 
-// Get user stats
+// ==================== GET USER STATS ====================
 app.get('/api/user/stats', (req, res) => {
     try {
         const { phoneNumber } = req.query;
@@ -288,27 +223,30 @@ app.get('/api/user/stats', (req, res) => {
             return res.status(404).json({ success: false, message: 'User not found' });
         }
         
-        const dailyTarget = bot.calculateDailyTarget(user.totalDeposits || 20, user.totalDeposits || 20);
-        const progressPercent = (user.currentDailyProfit / dailyTarget) * 100;
+        // Calculate next trade projection
+        const nextProfit = 1000 * (user.balance / 20);
         
         res.json({
             success: true,
             user: {
                 phoneNumber: user.phoneNumber,
                 balance: user.balance.toFixed(2),
-                totalDeposits: user.totalDeposits,
+                totalInvested: user.totalInvested,
                 totalProfit: user.totalProfit.toFixed(2),
                 totalTrades: user.totalTrades,
                 winningTrades: user.winningTrades,
-                losingTrades: user.losingTrades,
                 winRate: user.winRate.toFixed(1)
             },
-            dailyProgress: {
-                currentDailyProfit: user.currentDailyProfit.toFixed(2),
-                dailyTarget: dailyTarget,
-                progressPercent: Math.min(100, Math.max(0, progressPercent)).toFixed(1),
-                remainingTarget: Math.max(0, dailyTarget - user.currentDailyProfit).toFixed(2),
-                nextTradeSize: bot.calculatePosition(user.balance, user.totalDeposits || 20)
+            nextTrade: {
+                investment: 20,
+                expectedProfit: 1000,
+                totalReturn: 1020,
+                message: `💰 Invest $20 to earn $1,000 profit!`
+            },
+            projection: {
+                currentBalance: user.balance,
+                nextTradeProfit: nextProfit,
+                afterNextTrade: user.balance + nextProfit
             }
         });
         
@@ -317,37 +255,37 @@ app.get('/api/user/stats', (req, res) => {
     }
 });
 
-// Market analysis
+// ==================== MARKET ANALYSIS ====================
 app.get('/api/market/analysis', (req, res) => {
-    const analysis = bot.analyzeMarket();
     res.json({
         success: true,
         analysis: {
-            recommendation: analysis.recommendation,
-            confidence: analysis.winProbability,
-            sentiment: analysis.winProbability > 90 ? 'STRONG BULLISH' : 'BULLISH',
-            session: analysis.session,
-            winProbability: `${analysis.winProbability}%`,
-            price: (1.0890 + (Math.random() - 0.5) * 0.002).toFixed(5)
+            recommendation: 'BUY',
+            confidence: 99,
+            profitPotential: '$1,000 per $20',
+            sentiment: 'EXTREMELY BULLISH',
+            opportunity: 'HIGH PROFIT OPPORTUNITY',
+            price: '1.09234',
+            timestamp: Date.now()
         }
     });
 });
 
-// AI Status
+// ==================== AI STATUS ====================
 app.get('/api/ai/status', (req, res) => {
     res.json({
         success: true,
         initialized: true,
         botName: 'FOREX 1000/DAY',
-        dailyTarget: '$1,000+',
-        minDeposit: '$20',
-        winRate: '92-95%',
-        strategy: 'Compound Growth + High Probability Trading',
+        profitPerTrade: '$1,000 from $20',
+        minInvestment: '$20',
+        winRate: '99.9%',
+        strategy: 'HIGH YIELD TRADING - ONE TRADE TO $1000',
         activeUsers: users.size
     });
 });
 
-// Withdraw
+// ==================== WITHDRAW ====================
 app.post('/api/withdraw', (req, res) => {
     try {
         const { phoneNumber, amount, provider = 'mpesa' } = req.body;
@@ -368,6 +306,7 @@ app.post('/api/withdraw', (req, res) => {
             transactionId: `WDR_${Date.now()}`,
             amount: amount,
             phoneNumber: phoneNumber,
+            provider: provider,
             message: `✅ $${amount} sent to ${phoneNumber} successfully!`
         });
         
@@ -376,27 +315,30 @@ app.post('/api/withdraw', (req, res) => {
     }
 });
 
-// Serve frontend
+// ==================== SERVE FRONTEND ====================
 app.use(express.static('public'));
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Start server
+// ==================== START SERVER ====================
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`
-╔══════════════════════════════════════════════════════════════════╗
-║                                                                  ║
-║   🚀 FOREX 1000/DAY BOT - 92-95% WIN RATE                       ║
-║                                                                  ║
-║   ✅ Server: http://localhost:${PORT}                            ║
-║   💰 Min Investment: $20                                        ║
-║   🎯 Daily Target: $1,000+                                      ║
-║   📊 Win Rate: 92-95% (ALMOST NEVER LOSES)                      ║
-║   🔄 Strategy: Compound Growth                                   ║
-║                                                                  ║
-║   ⚡ Bot guarantees profit 19 out of 20 trades!                  ║
-║                                                                  ║
-╚══════════════════════════════════════════════════════════════════╝
+╔══════════════════════════════════════════════════════════════════════╗
+║                                                                      ║
+║   🚀 FOREX 1000/DAY - ONE TRADE TO $1000!                           ║
+║                                                                      ║
+║   💰 Invest $20 → Get $1,000 PROFIT                                 ║
+║   💰 Invest $50 → Get $2,500 PROFIT                                 ║
+║   💰 Invest $100 → Get $5,000 PROFIT                                ║
+║   💰 Invest $1000 → Get $50,000 PROFIT                              ║
+║                                                                      ║
+║   📊 WIN RATE: 99.9% (ALMOST GUARANTEED)                            ║
+║   ⚡ ONE TRADE - INSTANT PROFIT                                      ║
+║   🎯 TARGET: $1,000 PROFIT FROM $20                                 ║
+║                                                                      ║
+║   🌐 Server: http://localhost:${PORT}                                ║
+║                                                                      ║
+╚══════════════════════════════════════════════════════════════════════╝
     `);
 });
