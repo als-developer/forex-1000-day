@@ -1,16 +1,29 @@
 {
-  "name": "forex-1000-day",
-  "version": "1.0.0",
-  "description": "Forex 1000/Day Bot",
+  "name": "professional-forex-ai-bot",
+  "version": "8.0.0",
+  "description": "Self-Learning Professional Forex AI Bot with Persistent Memory",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "engines": {
     "node": "18.x"
   },
   "dependencies": {
     "express": "^4.18.2",
-    "uuid": "^9.0.0"
+    "mongoose": "^7.5.0",
+    "socket.io": "^4.7.2",
+    "cors": "^2.8.5",
+    "helmet": "^7.0.0",
+    "compression": "^1.7.4",
+    "express-rate-limit": "^6.10.0",
+    "winston": "^3.10.0",
+    "dotenv": "^16.3.1",
+    "uuid": "^9.0.1",
+    "node-cron": "^3.0.3",
+    "axios": "^1.5.0",
+    "technicalindicators": "^3.1.0",
+    "trading-signals": "^4.1.0"
   }
 }
