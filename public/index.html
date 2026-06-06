@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>FOREX-1000/DAY - Ultimate Forex AI Bot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">🚀</div>
+                <div class="logo-text">
+                    <span class="logo-title">FOREX-1000/DAY</span>
+                    <span class="logo-badge">ELITE AI</span>
+                </div>
+            </div>
+            <div class="header-stats">
+                <div class="stat-card">
+                    <div class="stat-label">DAILY TARGET</div>
+                    <div class="stat-value">$1,000</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">MIN INVEST</div>
+                    <div class="stat-value">$20</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">WIN RATE</div>
+                    <div class="stat-value" id="globalWinRate">78%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Hero Section -->
+        <div class="hero">
+            <div class="hero-badge">⚡ AI-POWERED TRADING</div>
+            <h1 class="hero-title">Turn <span class="highlight">$20</span> Into <span class="highlight">$1,000</span> Daily</h1>
+            <p class="hero-subtitle">Our advanced AI trading engine executes high-probability trades with 75-85% accuracy. Watch your investment grow exponentially!</p>
+        </div>
+
+        <!-- Live Market Ticker -->
+        <div class="ticker-container">
+            <div class="ticker">
+                <span class="ticker-label">EUR/USD</span>
+                <span class="ticker-price" id="livePrice">1.08923</span>
+                <span class="ticker-change" id="liveChange">+0.12%</span>
+                <span class="ticker-confidence" id="liveConfidence">AI Confidence: 72%</span>
+                <span class="ticker-signal" id="liveSignal">BUY SIGNAL</span>
+            </div>
+        </div>
+
+        <!-- Main Trading Card -->
+        <div class="card trading-card">
+            <div class="card-header">
+                <h2>💰 START TRADING NOW</h2>
+                <p>Invest $20 or more and let our AI work for you</p>
+            </div>
+            
+            <div class="investment-options">
+                <button class="investment-btn" data-amount="20">$20</button>
+                <button class="investment-btn" data-amount="50">$50</button>
+                <button class="investment-btn" data-amount="100">$100</button>
+                <button class="investment-btn" data-amount="500">$500</button>
+                <button class="investment-btn" data-amount="1000">$1,000</button>
+            </div>
+            
+            <div class="input-group">
+                <label>💰 Custom Amount (USD)</label>
+                <input type="number" id="customAmount" placeholder="Enter amount (min $20)" min="20" step="10">
+            </div>
+            
+            <div class="input-group">
+                <label>📱 Phone Number (M-Pesa/Tigo/Airtel)</label>
+                <input type="tel" id="phoneNumber" placeholder="e.g., 0712345678">
+            </div>
+            
+            <div class="input-group">
+                <label>📧 Email (Optional)</label>
+                <input type="email" id="email" placeholder="your@email.com">
+            </div>
+            
+            <div class="payment-methods">
+                <span class="payment-badge active" data-provider="mpesa">M-PESA</span>
+                <span class="payment-badge" data-provider="tigopesa">TIGO PESA</span>
+                <span class="payment-badge" data-provider="airtel">AIRTEL MONEY</span>
+            </div>
+            
+            <button class="btn-primary" id="startTradingBtn">
+                <span>🚀 START TRADING</span>
+            </button>
+            
+            <div class="disclaimer">
+                <p>⚠️ Your payment will be converted to trading capital. AI bot will execute trades automatically. Profits sent to your phone instantly.</p>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="card results-card" id="resultsCard" style="display: none;">
+            <div class="card-header">
+                <h2>📊 TRADE RESULT</h2>
+                <p>Your AI-powered trading execution</p>
+            </div>
+            <div id="resultsContent"></div>
+        </div>
+
+        <!-- Stats Dashboard -->
+        <div class="card" id="statsCard" style="display: none;">
+            <div class="card-header">
+                <h2>📈 YOUR PERFORMANCE</h2>
+                <p>Track your progress to $1,000/day</p>
+            </div>
+            <div id="statsContent"></div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">🧠</div>
+                <h3>AI-Powered Analysis</h3>
+                <p>7 advanced strategies working together for maximum profit</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">⚡</div>
+                <h3>Instant Execution</h3>
+                <p>Trades executed in milliseconds for optimal entry</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">💰</div>
+                <h3>Auto Profit Withdrawal</h3>
+                <p>Profits sent directly to your mobile money</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📈</div>
+                <h3>Compound Growth</h3>
+                <p>Your investment grows exponentially with each trade</p>
+            </div>
+        </div>
+
+        <!-- How It Works -->
+        <div class="how-it-works">
+            <h2>How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Invest $20+</h3>
+                    <p>Deposit via M-Pesa, Tigo Pesa, or Airtel Money</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>AI Analyzes Market</h3>
+                    <p>Our AI scans 17 indicators in real-time</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Auto Trading</h3>
+                    <p>Bot executes high-confidence trades automatically</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Profit Withdrawal</h3>
+                    <p>Daily profits sent to your phone instantly</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Projection Calculator -->
+        <div class="card projection-card">
+            <div class="card-header">
+                <h2>📊 PROFIT PROJECTION</h2>
+                <p>See how fast your money grows</p>
+            </div>
+            <div class="projection-grid">
+                <div class="projection-item">
+                    <span>Day 1 (Start)</span>
+                    <strong>$20</strong>
+                </div>
+                <div class="projection-item">
+                    <span>Day 1 (End)</span>
+                    <strong class="text-success">$1,000+</strong>
+                </div>
+                <div class="projection-item">
+                    <span>Day 2</span>
+                    <strong class="text-success">$2,000+</strong>
+                </div>
+                <div class="projection-item">
+                    <span>Day 7</span>
+                    <strong class="text-success">$7,000+</strong>
+                </div>
+                <div class="projection-item">
+                    <span>Day 30</span>
+                    <strong class="text-success">$30,000+</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
